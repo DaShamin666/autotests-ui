@@ -1,49 +1,44 @@
-from playwright.sync_api import sync_playwright, Page, expect
+from playwright.sync_api import sync_playwright, expect
 
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
 
-def save_browser_state(context):
-    context.storage_state(path='storage_state.json')
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
+    email_input = page.get_by_test_id('registration-form-email-input').locator('input')
+    email_input.fill('user.name@gmail.com')
 
-def load_browser_state(browser):
-    return browser.new_context(storage_state='storage_state.json')
+    username_input = page.get_by_test_id('registration-form-username-input').locator('input')
+    username_input.fill('username')
 
+    password_input = page.get_by_test_id('registration-form-password-input').locator('input')
+    password_input.fill('password')
 
-def test():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+    registration_button = page.get_by_test_id('registration-page-registration-button')
+    registration_button.click()
 
-        context = browser.new_context()
-        page = context.new_page()
+    context.storage_state(path="browser-state.json")
 
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context(storage_state="browser-state.json")
+    page = context.new_page()
 
-        email = page.locator('//input[@id=":r0:"]')
-        expect(email).to_be_visible()
-        email.fill("user.name@gmail.com")
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
 
-        username = page.locator('//input[@id=":r1:"]')
-        expect(username).to_be_visible()
-        username.fill("username")
+    courses_title = page.get_by_test_id('courses-list-toolbar-title-text')
+    expect(courses_title).to_be_visible()
+    expect(courses_title).to_have_text('Courses')
 
-        password = page.locator('//input[@id=":r2:"]')
-        expect(password).to_be_visible()
-        password.fill("password")
+    empty_view_icon = page.get_by_test_id('courses-list-empty-view-icon')
+    expect(empty_view_icon).to_be_visible()
 
-        button_element = page.locator('//button[@id="registration-page-registration-button"]')
-        expect(button_element).to_be_visible()
-        assert button_element.is_enabled(), "Кнопка должна быть доступна для клика"
-        button_element.click()
+    empty_view_title = page.get_by_test_id('courses-list-empty-view-title-text')
+    expect(empty_view_title).to_be_visible()
+    expect(empty_view_title).to_have_text('There is no results')
 
-        save_browser_state(context)
-
-        context.close()
-
-        new_context = load_browser_state(browser)
-        new_page = new_context.new_page()
-
-        new_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-
-        new_page.wait_for_timeout(2000)
-
-        expect(new_page.locator('h6[data-testid="courses-list-toolbar-title-text"]')).to_have_text("Courses")
+    empty_view_description = page.get_by_test_id('courses-list-empty-view-description-text')
+    expect(empty_view_description).to_be_visible()
+    expect(empty_view_description).to_have_text('Results from the load test pipeline will be displayed here')
