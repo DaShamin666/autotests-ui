@@ -40,3 +40,14 @@ def test_wrong_email_or_password_authorization(email: str, password: str, chromi
 
     # Проверка, что остались на странице логина
     assert "login" in page.url or "auth" in page.url
+
+
+def test_successful_registration(registration_page, dashboard_page):
+    registration_page.page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+    registration_page.fill_registration_form_input(
+        email="user.name@gmail.com",
+        username="username",
+        password="password"
+    )
+    registration_page.click_registration_form_button()
+    dashboard_page.expect_dashboard_title_visible()

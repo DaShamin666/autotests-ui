@@ -1,5 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright, Playwright, Page
+from registration_page import RegistrationPage
+from dashboard_page import DashboardPage
 
 
 @pytest.fixture(scope="session")
@@ -48,4 +50,13 @@ def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -
     
     context.close()
     browser.close()
+
+
+@pytest.fixture
+def registration_page(page):
+    return RegistrationPage(page)
+
+@pytest.fixture
+def dashboard_page(page):
+    return DashboardPage(page)
 
