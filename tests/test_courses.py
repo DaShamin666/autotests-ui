@@ -1,34 +1,42 @@
-from playwright.sync_api import expect
 import pytest
+from playwright.sync_api import expect
 
-
-@pytest.mark.courses
-@pytest.mark.regression
-def test_empty_courses_list(chromium_page_with_state):
+@pytest.mark.parametrize(
+    "email, password",
+    [
+        ("user.name@gmail.com", "password"),
+        ("user.name@gmail.com", "  "),
+        ("  ", "password"),
+    ],
+    ids=[
+        "invalid_email_and_password",
+        "invalid_email_empty_password",
+        "empty_email_invalid_password"
+    ]
+)
+def test_wrong_email_or_password_authorization(email: str, password: str, chromium_page):
     """
-    Тест для проверки пустого списка курсов.
-    Использует фикстуру chromium_page_with_state для работы с авторизованной сессией.
+    Проверяем, что пользователь не может войти в систему с невалидными email и password.
     """
-    page = chromium_page_with_state
-    
-    # Переход на страницу курсов
-    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+    page = chromium_page
 
-    # Проверка заголовка страницы курсов
-    courses_title = page.get_by_test_id('courses-list-toolbar-title-text')
-    expect(courses_title).to_be_visible()
-    expect(courses_title).to_have_text('Courses')
+    # Переход на страницу авторизации
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
 
-    # Проверка иконки пустого состояния
-    empty_view_icon = page.get_by_test_id('courses-list-empty-view-icon')
-    expect(empty_view_icon).to_be_visible()
+    # Заполнение полей
+    email_input = page.get_by_test_id('login-form-email-input').locator('input')
+    email_input.fill(email)
 
-    # Проверка заголовка пустого состояния
-    empty_view_title = page.get_by_test_id('courses-list-empty-view-title-text')
-    expect(empty_view_title).to_be_visible()
-    expect(empty_view_title).to_have_text('There is no results')
+    password_input = page.get_by_test_id('login-form-password-input').locator('input')
+    password_input.fill(password)
 
-    # Проверка описания пустого состояния
-    empty_view_description = page.get_by_test_id('courses-list-empty-view-description-text')
-    expect(empty_view_description).to_be_visible()
-    expect(empty_view_description).to_have_text('Results from the load test pipeline will be displayed here')
+    # Нажатие кнопки входа
+    login_button = page.get_by_test_id('login-page-login-button')
+    login_button.click()
+
+    # Проверка, что пользователь не попал на дашборд
+    dashboard_title = page.get_by_test_id('dashboard-toolbar-title-text')
+    expect(dashboard_title).not_to_be_visible()
+
+    # Проверка, что остались на странице логина
+    assert "login" in page.url or "auth" in page.url
