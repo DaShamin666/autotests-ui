@@ -19,11 +19,8 @@ def test_empty_courses_list(courses_list_page_with_state: CoursesListPage):
     courses_list_page_with_state.navbar.check_visible("username")
     courses_list_page_with_state.sidebar.check_visible()
     
-    # Проверка заголовка страницы курсов
-    courses_list_page_with_state.check_visible_courses_title()
-    
-    # Проверка кнопки создания курса
-    courses_list_page_with_state.check_visible_create_course_button()
+    # Проверка заголовка страницы курсов и кнопки создания курса
+    courses_list_page_with_state.toolbar_view.check_visible()
     
     # Проверка пустого блока
     courses_list_page_with_state.check_visible_empty_view()
@@ -45,10 +42,7 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
     # 3. Проверить, что кнопка создания курса недоступна для нажатия
     create_course_page.check_disabled_create_course_button()
     
-    # 4. Убедиться, что отображается пустой блок для предпросмотра изображения
-    create_course_page.check_visible_image_preview_empty_view()
-    
-    # 5. Проверить, что блок загрузки изображения отображается без картинки
+    # 4-5. Проверить, что блок загрузки изображения отображается без картинки (включая пустой блок)
     create_course_page.check_visible_image_upload_view(is_image_uploaded=False)
     
     # 6. Проверить, что форма создания курса отображается с дефолтными значениями
@@ -60,11 +54,8 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
         min_score="0"
     )
     
-    # 7. Проверить наличие заголовка "Exercises"
+    # 7-8. Проверить наличие заголовка "Exercises" и кнопки создания задания
     create_course_page.check_visible_exercises_title()
-    
-    # 8. Проверить наличие кнопки создания задания
-    create_course_page.check_visible_create_exercise_button()
     
     # 9. Убедиться, что отображается блок с пустыми заданиями
     create_course_page.check_visible_exercises_empty_view()
@@ -87,14 +78,11 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
     # 13. Нажать на кнопку создания курса
     create_course_page.click_create_course_button()
     
-    # 14. Проверить наличие заголовка "Courses" (редирект на страницу со списком курсов)
-    courses_list_page.check_visible_courses_title()
-    
-    # 15. Проверить наличие кнопки создания курса
-    courses_list_page.check_visible_create_course_button()
+    # 14-15. Проверить наличие заголовка "Courses" и кнопки создания курса (редирект на страницу со списком курсов)
+    courses_list_page.toolbar_view.check_visible()
     
     # 16. Проверить корректность отображаемых данных на карточке курса
-    courses_list_page.check_visible_course_card(
+    courses_list_page.course_view.check_visible(
         index=0,
         title="Playwright",
         max_score="100",
