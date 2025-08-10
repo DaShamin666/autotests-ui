@@ -1,7 +1,8 @@
 import pytest
 from playwright.sync_api import sync_playwright, Playwright, Page
-from registration_page import RegistrationPage
-from dashboard_page import DashboardPage
+
+# импорт фикстур страниц
+from fixtures.pages import *  # noqa: F401,F403
 
 
 @pytest.fixture(scope="session")
@@ -37,6 +38,19 @@ def initialize_browser_state():
 
 
 @pytest.fixture
+def chromium_page(playwright: Playwright) -> Page:
+    """Новый Chromium Page для каждого теста."""
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
+    try:
+        yield page
+    finally:
+        context.close()
+        browser.close()
+
+
+@pytest.fixture
 def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -> Page:
     """
     Фикстура для создания страницы браузера с сохраненным состоянием.
@@ -50,13 +64,4 @@ def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -
     
     context.close()
     browser.close()
-
-
-@pytest.fixture
-def registration_page(page):
-    return RegistrationPage(page)
-
-@pytest.fixture
-def dashboard_page(page):
-    return DashboardPage(page)
 
