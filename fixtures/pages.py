@@ -1,11 +1,7 @@
 import pytest
 from playwright.sync_api import Page
 
-# Предполагается наличие pages.login_page.LoginPage в проекте; если нет, можно позже добавить
-try:
-    from pages.login_page import LoginPage  # type: ignore
-except Exception:  # pragma: no cover
-    LoginPage = None  # type: ignore
+from pages.login_page import LoginPage
 
 from pages.registration_page import RegistrationPage
 from pages.dashboard_page import DashboardPage
@@ -14,10 +10,8 @@ from pages.create_course_page import CreateCoursePage
 
 
 @pytest.fixture
-def login_page(chromium_page: Page):  # type: ignore
-    if LoginPage is None:
-        pytest.skip("LoginPage is not implemented in this project")
-    return LoginPage(page=chromium_page)  # type: ignore
+def login_page(chromium_page: Page) -> LoginPage:
+    return LoginPage(page=chromium_page)
 
 
 @pytest.fixture
