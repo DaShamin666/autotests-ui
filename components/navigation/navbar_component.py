@@ -1,3 +1,4 @@
+import allure  # Импортируем allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
@@ -13,6 +14,7 @@ class NavbarComponent(BaseComponent):
         self.navbar_username = Text(page, 'navbar-username-text', 'Username')
         self.navbar_avatar = Image(page, 'navbar-avatar', 'User avatar')
 
+    @allure.step('Check visible navbar with username "{username}"')  # Добавили allure шаг
     def check_visible(self, username: str):
         """Проверяет видимость компонента навбара и отображение имени пользователя"""
         self.navbar_logo.check_visible()

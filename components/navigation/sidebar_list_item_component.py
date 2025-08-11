@@ -1,5 +1,6 @@
 from typing import Pattern
 
+import allure  # Импортируем allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
@@ -16,6 +17,7 @@ class SidebarListItemComponent(BaseComponent):
         self.title = Text(page, f'{identifier}-drawer-list-item-title-text', f'{identifier} title')
         self.button = Button(page, f'{identifier}-drawer-list-item-button', f'{identifier} button')
 
+    @allure.step('Check visible "{title}" sidebar list item')  # Добавили allure шаг
     def check_visible(self, title: str):
         self.icon.check_visible()
         self.title.check_visible()
@@ -23,5 +25,6 @@ class SidebarListItemComponent(BaseComponent):
         self.button.check_visible()
 
     def navigate(self, expected_url: Pattern[str]):
+        # Здесь мы не добавляем allure.step, так как это используется в SidebarComponent с более конкретными названиями
         self.button.click()
         self.check_current_url(expected_url)

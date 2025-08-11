@@ -1,19 +1,26 @@
+import allure  # Импортируем allure
 from playwright.sync_api import Locator, expect
 
 from elements.base_element import BaseElement
 
 
 class Input(BaseElement):
+    @property
+    def type_of(self) -> str:  # Переопределяем свойство type_of
+        return "input"
+
     def get_locator(self, nth: int = 0, **kwargs) -> Locator:
         """Переопределяем для работы с input тегами внутри элемента."""
         return super().get_locator(nth, **kwargs).locator('input')
 
     def fill(self, value: str, nth: int = 0, **kwargs):
         """Заполняет поле ввода указанным текстом."""
-        locator = self.get_locator(nth, **kwargs)
-        locator.fill(value)
+        with allure.step(f'Fill {self.type_of} "{self.name}" to value "{value}"'):  # Добавили шаг
+            locator = self.get_locator(nth, **kwargs)
+            locator.fill(value)
 
     def check_have_value(self, value: str, nth: int = 0, **kwargs):
         """Проверяет значение, находящееся в поле ввода."""
-        locator = self.get_locator(nth, **kwargs)
-        expect(locator).to_have_value(value)
+        with allure.step(f'Checking that {self.type_of} "{self.name}" has a value "{value}"'):  # Добавили шаг
+            locator = self.get_locator(nth, **kwargs)
+            expect(locator).to_have_value(value)

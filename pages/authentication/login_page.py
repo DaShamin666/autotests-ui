@@ -1,4 +1,6 @@
 import re
+
+import allure  # Импортируем allure
 from playwright.sync_api import Page
 
 from components.authentication.login_form_component import LoginFormComponent
@@ -21,13 +23,16 @@ class LoginPage(BasePage):
         )
 
     def click_login_button(self):
+        # Здесь мы не добавляем allure.step, так как Button уже имеет его в Page Factory
         self.login_button.click()
 
     def click_registration_link(self):
+        # Здесь мы не добавляем allure.step, так как Link уже имеет его в Page Factory
         self.registration_link.click()
         # Добавили проверку
         self.check_current_url(re.compile(".*/#/auth/registration"))
 
+    @allure.step("Check visible wrong email or password alert")  # Добавили allure шаг
     def check_visible_wrong_email_or_password_alert(self):
         self.wrong_email_or_password_alert.check_visible()
         self.wrong_email_or_password_alert.check_have_text('Wrong email or password')
