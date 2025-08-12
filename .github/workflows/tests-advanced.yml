@@ -95,6 +95,7 @@ jobs:
             -m regression \
             -k "${{ matrix.browser }}" \
             --alluredir=allure-results-${{ matrix.browser }} \
+            --numprocesses=2 \
             --maxfail=3 \
             -v
 
