@@ -4,6 +4,7 @@ from _pytest.fixtures import SubRequest
 
 # импорт фикстур страниц
 from fixtures.pages import *  # noqa: F401,F403
+from fixtures.allure import *  # noqa: F401,F403  # Добавили импорт фикстур Allure
 from pages.authentication.registration_page import RegistrationPage
 from tools.playwright.pages import initialize_playwright_page
 from tools.routes import AppRoute
