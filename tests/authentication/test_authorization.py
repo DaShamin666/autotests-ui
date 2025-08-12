@@ -9,6 +9,8 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
+from tools.routes import AppRoute
+from config import settings
 
 
 @pytest.mark.regression
@@ -38,7 +40,7 @@ class TestAuthorization:
     @allure.title("User login with wrong email or password")
     @allure.severity(Severity.CRITICAL)
     def test_wrong_email_or_password_authorization(self, login_page: LoginPage, email: str, password: str):
-        login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        login_page.visit(AppRoute.LOGIN)  # Используем AppRoute
         login_page.login_form.fill(email=email, password=password)
         login_page.click_login_button()
         login_page.check_visible_wrong_email_or_password_alert()
@@ -60,23 +62,30 @@ class TestAuthorization:
         4. Проверка повторного входа на Dashboard
         """
         # 1. Регистрация нового пользователя
-        registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
-        registration_page.registration_form.fill(email="user.name@gmail.com", username="username", password="password")
+        registration_page.visit(AppRoute.REGISTRATION)  # Используем AppRoute
+        registration_page.registration_form.fill(
+            email=settings.test_user.email,      # Используем settings
+            username=settings.test_user.username, # Используем settings
+            password=settings.test_user.password  # Используем settings
+        )
         registration_page.click_registration_button()
 
         # 2. Проверяем, что открылась страница Dashboard и нажимаем кнопку "Logout"
         dashboard_page.check_visible_dashboard_title()
-        dashboard_page.navbar.check_visible("username")
+        dashboard_page.navbar.check_visible(settings.test_user.username)  # Используем settings
         dashboard_page.sidebar.check_visible()
         dashboard_page.sidebar.click_logout()
 
         # 3. Заполняем форму авторизации и нажимаем кнопку "Login"
-        login_page.login_form.fill(email="user.name@gmail.com", password="password")
+        login_page.login_form.fill(
+            email=settings.test_user.email,    # Используем settings
+            password=settings.test_user.password # Используем settings
+        )
         login_page.click_login_button()
 
         # 4. Проверяем, что открылась страница Dashboard
         dashboard_page.check_visible_dashboard_title()
-        dashboard_page.navbar.check_visible("username")
+        dashboard_page.navbar.check_visible(settings.test_user.username)  # Используем settings
         dashboard_page.sidebar.check_visible()
 
     @allure.tag(AllureTag.NAVIGATION)
@@ -91,7 +100,7 @@ class TestAuthorization:
         Тест навигации со страницы авторизации на страницу регистрации
         """
         # 1. Открываем страницу авторизации
-        login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        login_page.visit(AppRoute.LOGIN)  # Используем AppRoute
         
         # 2. Нажимаем на ссылку "Registration"
         login_page.click_registration_link()

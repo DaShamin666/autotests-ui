@@ -7,6 +7,8 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
+from tools.routes import AppRoute
+from config import settings
 
 
 @pytest.mark.dashboard
@@ -22,10 +24,10 @@ class TestDashboard:
     @allure.title("Check displaying of dashboard page")
     @allure.severity(Severity.NORMAL)
     def test_dashboard_displaying(self, dashboard_page_with_state: DashboardPage):
-        dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        dashboard_page_with_state.visit(AppRoute.DASHBOARD)  # Используем AppRoute
         
         # Проверка компонентов навигации
-        dashboard_page_with_state.navbar.check_visible("username")
+        dashboard_page_with_state.navbar.check_visible(settings.test_user.username)  # Используем settings
         dashboard_page_with_state.sidebar.check_visible()
         
         # Проверка элементов дашборда
