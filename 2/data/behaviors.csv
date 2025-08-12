@@ -1,0 +1,6 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"LMS system","Dashboard","Dashboard","1","2","0","0","0"
+"LMS system","Courses","Courses","2","7","0","0","0"
+"","","","0","2","0","0","0"
+"LMS system","Authentication","Authorization","1","10","4","0","0"
+"LMS system","Authentication","Registration","0","2","1","0","0"
