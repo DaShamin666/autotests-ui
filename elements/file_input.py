@@ -1,6 +1,9 @@
 import allure  # Импортируем allure
 
 from elements.base_element import BaseElement
+from tools.logger import get_logger
+
+logger = get_logger("FILE_INPUT")
 
 
 class FileInput(BaseElement):
@@ -10,6 +13,9 @@ class FileInput(BaseElement):
 
     def set_input_files(self, file: str, nth: int = 0, **kwargs):
         """Позволяет загружать файлы."""
-        with allure.step(f'Set file "{file}" to the {self.type_of} "{self.name}"'):  # Добавили шаг
+        step = f'Set file "{file}" to the {self.type_of} "{self.name}"'
+        
+        with allure.step(step):
             locator = self.get_locator(nth, **kwargs)
+            logger.info(step)  # Добавили логирование
             locator.set_input_files(file)
