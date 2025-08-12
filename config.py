@@ -1,4 +1,5 @@
 # config.py
+import os
 from enum import Enum
 from typing import Self
 
@@ -29,11 +30,17 @@ class Settings(BaseSettings):
         env_nested_delimiter=".",
     )
 
-    app_url: HttpUrl
-    headless: bool
-    browsers: list[Browser]
-    test_user: TestUser
-    test_data: TestData
+    app_url: HttpUrl = "https://nikita-filonov.github.io/qa-automation-engineer-ui-course"
+    headless: bool = True  # По умолчанию True для CI/CD, можно переопределить в .env
+    browsers: list[Browser] = [Browser.CHROMIUM, Browser.WEBKIT]  # По умолчанию только chromium и webkit
+    test_user: TestUser = TestUser(
+        email="user.name@gmail.com",
+        username="username", 
+        password="password"
+    )
+    test_data: TestData = TestData(
+        image_png_file="./testdata/files/image.png"
+    )
     videos_dir: DirectoryPath
     tracing_dir: DirectoryPath
     allure_results_dir: DirectoryPath  # Добавили новое поле

@@ -89,7 +89,7 @@ jobs:
       - name: Run tests for ${{ matrix.browser }}
         env:
           BROWSERS: '["${{ matrix.browser }}"]'
-          HEADLESS: 'true'
+          HEADLESS: 'true'  # Принудительно включаем headless режим в CI/CD
         run: |
           pytest tests/ \
             -m regression \
