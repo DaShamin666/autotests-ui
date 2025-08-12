@@ -1,0 +1,84 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Tue Aug 12 19:53:04 GMT 2025","Tue Aug 12 19:53:35 GMT 2025","30999","LMS system","Courses","Courses","","","Edit course","
+        Тест для проверки редактирования курса.
+        E2E тест: создание курса → редактирование → проверка изменений.
+        "
+"broken","Tue Aug 12 19:53:38 GMT 2025","Tue Aug 12 19:53:39 GMT 2025","604","tests","test_successful_registration","","","","test_successful_registration[chromium]",""
+"passed","Tue Aug 12 19:52:29 GMT 2025","Tue Aug 12 19:52:31 GMT 2025","1872","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"passed","Tue Aug 12 19:52:48 GMT 2025","Tue Aug 12 19:52:49 GMT 2025","1122","LMS system","Authentication","Authorization","","","Navigation from login page to registration page","
+        Тест навигации со страницы авторизации на страницу регистрации
+        "
+"failed","Tue Aug 12 19:52:41 GMT 2025","Tue Aug 12 19:52:48 GMT 2025","6583","LMS system","Authentication","Authorization","","","User login with correct email and password","
+        E2E тест успешной авторизации:
+        1. Регистрация нового пользователя
+        2. Проверка Dashboard и выход из системы
+        3. Авторизация с теми же данными
+        4. Проверка повторного входа на Dashboard
+        "
+"passed","Tue Aug 12 12:27:57 GMT 2025","Tue Aug 12 12:27:59 GMT 2025","1773","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"passed","Tue Aug 12 19:52:37 GMT 2025","Tue Aug 12 19:52:39 GMT 2025","1588","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"failed","Tue Aug 12 12:29:15 GMT 2025","Tue Aug 12 12:29:22 GMT 2025","6623","LMS system","Courses","Courses","","","Create course","
+        Тест для проверки создания курса.
+        Использует фикстуры create_course_page и courses_list_page.
+        "
+"failed","Tue Aug 12 12:28:15 GMT 2025","Tue Aug 12 12:28:22 GMT 2025","7158","LMS system","Authentication","Authorization","","","User login with correct email and password","
+        E2E тест успешной авторизации:
+        1. Регистрация нового пользователя
+        2. Проверка Dashboard и выход из системы
+        3. Авторизация с теми же данными
+        4. Проверка повторного входа на Dashboard
+        "
+"passed","Tue Aug 12 12:27:51 GMT 2025","Tue Aug 12 12:27:53 GMT 2025","1741","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"passed","Tue Aug 12 19:52:32 GMT 2025","Tue Aug 12 19:52:33 GMT 2025","1311","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"failed","Tue Aug 12 19:52:47 GMT 2025","Tue Aug 12 19:52:53 GMT 2025","6099","LMS system","Courses","Courses","","","Check displaying of empty courses list","
+        Тест для проверки пустого списка курсов.
+        Использует фикстуру courses_list_page_with_state для работы с авторизованной сессией.
+        "
+"failed","Tue Aug 12 19:52:35 GMT 2025","Tue Aug 12 19:52:42 GMT 2025","7167","LMS system","Authentication","Authorization","","","User login with correct email and password","
+        E2E тест успешной авторизации:
+        1. Регистрация нового пользователя
+        2. Проверка Dashboard и выход из системы
+        3. Авторизация с теми же данными
+        4. Проверка повторного входа на Dashboard
+        "
+"passed","Tue Aug 12 19:52:35 GMT 2025","Tue Aug 12 19:52:37 GMT 2025","1622","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"failed","Tue Aug 12 19:52:58 GMT 2025","Tue Aug 12 19:53:04 GMT 2025","5993","LMS system","Courses","Courses","","","Create course","
+        Тест для проверки создания курса.
+        Использует фикстуры create_course_page и courses_list_page.
+        "
+"passed","Tue Aug 12 19:52:44 GMT 2025","Tue Aug 12 19:52:46 GMT 2025","1488","LMS system","Authentication","Registration","","","Registration with correct email, username and password",""
+"failed","Tue Aug 12 19:53:32 GMT 2025","Tue Aug 12 19:53:38 GMT 2025","6365","LMS system","Dashboard","Dashboard","","","Check displaying of dashboard page",""
+"passed","Tue Aug 12 19:52:39 GMT 2025","Tue Aug 12 19:52:41 GMT 2025","1435","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"failed","Tue Aug 12 12:31:15 GMT 2025","Tue Aug 12 12:31:22 GMT 2025","6705","LMS system","Dashboard","Dashboard","","","Check displaying of dashboard page",""
+"failed","Tue Aug 12 19:52:51 GMT 2025","Tue Aug 12 19:52:57 GMT 2025","6070","LMS system","Courses","Courses","","","Create course","
+        Тест для проверки создания курса.
+        Использует фикстуры create_course_page и courses_list_page.
+        "
+"broken","Tue Aug 12 12:30:28 GMT 2025","Tue Aug 12 12:30:59 GMT 2025","31778","LMS system","Courses","Courses","","","Edit course","
+        Тест для проверки редактирования курса.
+        E2E тест: создание курса → редактирование → проверка изменений.
+        "
+"passed","Tue Aug 12 12:28:28 GMT 2025","Tue Aug 12 12:28:30 GMT 2025","1865","LMS system","Authentication","Authorization","","","Navigation from login page to registration page","
+        Тест навигации со страницы авторизации на страницу регистрации
+        "
+"passed","Tue Aug 12 19:52:43 GMT 2025","Tue Aug 12 19:52:44 GMT 2025","1310","LMS system","Authentication","Authorization","","","Navigation from login page to registration page","
+        Тест навигации со страницы авторизации на страницу регистрации
+        "
+"broken","Tue Aug 12 19:53:00 GMT 2025","Tue Aug 12 19:53:31 GMT 2025","31143","LMS system","Courses","Courses","","","Edit course","
+        Тест для проверки редактирования курса.
+        E2E тест: создание курса → редактирование → проверка изменений.
+        "
+"failed","Tue Aug 12 19:52:54 GMT 2025","Tue Aug 12 19:53:00 GMT 2025","5936","LMS system","Courses","Courses","","","Check displaying of empty courses list","
+        Тест для проверки пустого списка курсов.
+        Использует фикстуру courses_list_page_with_state для работы с авторизованной сессией.
+        "
+"passed","Tue Aug 12 19:52:50 GMT 2025","Tue Aug 12 19:52:51 GMT 2025","1390","LMS system","Authentication","Registration","","","Registration with correct email, username and password",""
+"passed","Tue Aug 12 12:27:54 GMT 2025","Tue Aug 12 12:27:56 GMT 2025","1947","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"passed","Tue Aug 12 12:28:35 GMT 2025","Tue Aug 12 12:28:37 GMT 2025","1952","LMS system","Authentication","Registration","","","Registration with correct email, username and password",""
+"passed","Tue Aug 12 19:52:29 GMT 2025","Tue Aug 12 19:52:31 GMT 2025","1801","LMS system","Authentication","Authorization","","","User login with wrong email or password",""
+"failed","Tue Aug 12 19:53:37 GMT 2025","Tue Aug 12 19:53:43 GMT 2025","6010","LMS system","Dashboard","Dashboard","","","Check displaying of dashboard page",""
+"broken","Tue Aug 12 19:53:43 GMT 2025","Tue Aug 12 19:53:44 GMT 2025","462","tests","test_successful_registration","","","","test_successful_registration[webkit]",""
+"failed","Tue Aug 12 12:28:54 GMT 2025","Tue Aug 12 12:29:00 GMT 2025","6606","LMS system","Courses","Courses","","","Check displaying of empty courses list","
+        Тест для проверки пустого списка курсов.
+        Использует фикстуру courses_list_page_with_state для работы с авторизованной сессией.
+        "
