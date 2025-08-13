@@ -31,6 +31,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip  # Обновляем pip до последней версии
           pip install -r requirements.txt  # Устанавливаем зависимости, указанные в requirements.txt
+          pip install ui-coverage-tool  # Устанавливаем ui-coverage-tool для сбора покрытия UI
           playwright install --with-deps  # Устанавливаем браузеры для Playwright (если они не установлены)
 
       # 4. Шаг для запуска тестов с использованием pytest и генерации отчётов Allure
@@ -40,13 +41,31 @@ jobs:
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses=2  # Запускаем тесты, отмеченные как "regression", генерируем результаты для Allure
 
-      # 5. Сохранение результатов Allure как артефакт для передачи в следующую джобу
+      # 5. Генерация отчета покрытия UI
+      - name: Generate UI coverage report
+        if: always()  # Генерируем отчет даже если тесты упали
+        run: |
+          ui-coverage-tool save-report  # Генерируем HTML и JSON отчеты покрытия
+
+      # 6. Сохранение результатов Allure как артефакт для передачи в следующую джобу
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         if: always()  # Сохраняем артефакты даже если тесты упали
         with:
           name: allure-results
           path: allure-results
+          retention-days: 30  # Хранить артефакты 30 дней
+
+      # 7. Сохранение отчета покрытия UI как артефакт
+      - name: Upload UI coverage report
+        uses: actions/upload-artifact@v4
+        if: always()  # Сохраняем артефакты даже если тесты упали
+        with:
+          name: coverage-report
+          path: |
+            index.html
+            coverage-report.json
+            coverage-history.json
           retention-days: 30  # Хранить артефакты 30 дней
 
   publish-report:
